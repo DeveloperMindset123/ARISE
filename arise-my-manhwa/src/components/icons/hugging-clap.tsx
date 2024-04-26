@@ -6,3 +6,5 @@ export function HuggingClap() {
       </svg>
     )
   }
+
+  
