@@ -2,6 +2,7 @@
 
 import { LLMPredictionFunctionParams } from '@/types';
 import Anthropic from '@anthropic-ai/sdk';
+//TODO: Fix this error, most likely requires installation
 import { MessageParam } from '@anthropic-ai/sdk/resources';
 
 export async function predict({
