@@ -6,28 +6,59 @@ import Replicate from "replicate"
 import { RenderRequest, RenderedScene, RenderingEngine, Settings } from "@/types"
 import { generateSeed } from "@/lib/generateSeed"
 import { sleep } from "@/lib/sleep"
+import dotenv from 'dotenv';
+import { dot } from "node:test/reporters"
+
+dotenv.config({path: '.env'});
 
 const serverRenderingEngine = `${process.env.RENDERING_ENGINE || ""}` as RenderingEngine
+console.log("Render.ts env file content (serverRenderingEngine) loaded:", serverRenderingEngine);
 
-// TODO: we should split Hugging Face and Replicate backends into separate files
+// TODO: should split Hugging Face and Replicate backends into separate files
 const serverHuggingfaceApiKey = `${process.env.AUTH_HF_API_TOKEN || ""}`
+console.log("Render.ts env file content (serverHuggingfaceApiKey) loaded", serverHuggingfaceApiKey);
+
 const serverHuggingfaceApiUrl = `${process.env.RENDERING_HF_INFERENCE_ENDPOINT_URL || ""}`
+console.log("Render.ts env file content (serverHuggingfaceApiUrl) loaded", serverHuggingfaceApiUrl);
+
 const serverHuggingfaceInferenceApiModel = `${process.env.RENDERING_HF_INFERENCE_API_BASE_MODEL || ""}`
+console.log("Render.ts env file content (serverHuggingfaceInferenceApiModel) loaded", serverHuggingfaceInferenceApiModel);
+
 const serverHuggingfaceInferenceApiModelRefinerModel = `${process.env.RENDERING_HF_INFERENCE_API_REFINER_MODEL || ""}`
+console.log("Render.ts env file content (serverHuggingfaceInferenceApiModelRefinerModel) loaded", serverHuggingfaceInferenceApiModelRefinerModel);
+
 const serverHuggingfaceInferenceApiModelTrigger = `${process.env.RENDERING_HF_INFERENCE_API_MODEL_TRIGGER || ""}`
+console.log("Render.ts env file content (serverHuggingfaceInferenceApiModelTrigger) loaded", serverHuggingfaceInferenceApiModelTrigger);
+
 const serverHuggingfaceInferenceApiFileType = `${process.env.RENDERING_HF_INFERENCE_API_FILE_TYPE || ""}`
+console.log("Render.ts env file content (serverHuggingfaceInferenceApiFileType) loaded", serverHuggingfaceInferenceApiFileType);
 
 const serverReplicateApiKey = `${process.env.AUTH_REPLICATE_API_TOKEN || ""}`
+console.log("Render.ts env file content (serverReplicateApiKey) loaded", serverReplicateApiKey);
+
 const serverReplicateApiModel = `${process.env.RENDERING_REPLICATE_API_MODEL || ""}`
+console.log("Render.ts env file content (serverReplicateApiModel) loaded", serverReplicateApiModel);
+
 const serverReplicateApiModelVersion = `${process.env.RENDERING_REPLICATE_API_MODEL_VERSION || ""}`
+console.log("Render.ts env file content (serverReplicateApiModelVersion) loaded", serverReplicateApiModelVersion);
+
 const serverReplicateApiModelTrigger = `${process.env.RENDERING_REPLICATE_API_MODEL_TRIGGER || ""}`
+console.log("Render.ts env file content (serverReplicateApiModelTrigger) loaded", serverReplicateApiModelTrigger);
 
 const videochainToken = `${process.env.AUTH_VIDEOCHAIN_API_TOKEN || ""}`
+console.log("Render.ts env file content (videochainToken) loaded", videochainToken);
+
 const videochainApiUrl = `${process.env.RENDERING_VIDEOCHAIN_API_URL || ""}`
+console.log("Render.ts env file content (videochainApiUrl) loaded", videochainApiUrl);
 
 const serverOpenaiApiKey = `${process.env.AUTH_OPENAI_API_KEY || ""}`
+console.log("Render.ts env file content (serverOpenaiApiKey) loaded", serverOpenaiApiKey);
+
 const serverOpenaiApiBaseUrl = `${process.env.RENDERING_OPENAI_API_BASE_URL || "https://api.openai.com/v1"}`
+console.log("Render.ts env file content (serverOpenaiApiBaseUrl) loaded", serverOpenaiApiBaseUrl);
+
 const serverOpenaiApiModel = `${process.env.RENDERING_OPENAI_API_MODEL || "dall-e-3"}`
+console.log("Render.ts env file content (serverOpenaiApiModel) loaded", serverOpenaiApiModel);
 
 export async function newRender({
   prompt,

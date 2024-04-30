@@ -3,7 +3,9 @@ import { GeneratedPanel, LLMVendorConfig } from "@/types"
 import { predictNextPanels } from "./predictNextPanels"
 import { joinWords } from "@/lib/joinWords"
 import { sleep } from "@/lib/sleep"
+import dotenv from "dotenv";
 
+dotenv.config({path: ".env"});
 export const getStoryContinuation = async ({
   preset,
   stylePrompt = "",

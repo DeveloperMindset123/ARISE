@@ -1,7 +1,10 @@
 "use server"
 
-import { LLMPredictionFunctionParams } from "@/types"
-import Groq from "groq-sdk"
+import { LLMPredictionFunctionParams } from "@/types";
+import Groq from "groq-sdk";
+import dotenv from 'dotenv';
+
+dotenv.config({path: ".env"});
 
 export async function predict({
   systemPrompt,
@@ -37,7 +40,7 @@ export async function predict({
       temperature: 0.5,
       max_tokens: nbMaxNewTokens,
     })
-
+    console.log("Groq API call response: ", res);
     return res.choices[0].message.content || ""
   } catch (err) {
     console.error(`error during generation: ${err}`)

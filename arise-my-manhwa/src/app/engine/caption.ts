@@ -1,8 +1,12 @@
 "use server"
 
-import { ImageAnalysisRequest, ImageAnalysisResponse } from "@/types"
+import { ImageAnalysisRequest, ImageAnalysisResponse } from "@/types";
+import dotenv from 'dotenv';
+
+dotenv.config({path: '.env'})
 
 const apiUrl = `${process.env.RENDERING_VIDEOCHAIN_API_URL || ""}`
+console.log("The Api URL Loaded in caption.ts file is:", apiUrl);
 
 export async function see({
   prompt,

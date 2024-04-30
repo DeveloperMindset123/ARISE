@@ -3,7 +3,10 @@
 import { getValidBoolean } from "@/lib/getValidBoolean"
 import { getValidNumber } from "@/lib/getValidNumber"
 import { getValidString } from "@/lib/getValidString"
-import { DynamicConfig } from "@/types"
+import { DynamicConfig } from "@/types" 
+import dotenv from "dotenv";
+
+dotenv.config({path: ".env"});
 
 export async function getDynamicConfig(): Promise<DynamicConfig> {
   const maxNbPages = getValidNumber(process.env.MAX_NB_PAGES, 1, Number.MAX_SAFE_INTEGER, 1)
