@@ -1,6 +1,6 @@
 {
-  "name": "arise-my-manhwa",
-  "version": "0.1.0",
+  "name": "@jbilcke/comic-factory",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
