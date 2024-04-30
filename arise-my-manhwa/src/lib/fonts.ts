@@ -33,7 +33,7 @@ import {
   })
   
   export const manoskope = localFont({
-    src: "../fonts/Manoskope/MANOSKOPE-Bold.woff2",
+    src: "../fonts/Manoskope/MANOSKOPE-Bold.woff2", 
     variable: "--font-manoskope"
   })
   
@@ -53,7 +53,7 @@ import {
   })
   
   export const cartoonist = localFont({
-    src: "../fonts/SF-Cartoonist-Hand/SF-Cartoonist-Hand.woff2",
+    src: "../fonts/SF-Cartoonist-Hand/SF-Cartoonist-Hand.woff2", 
     variable: "--font-sf-cartoonist-hand"
   })
   
@@ -63,7 +63,7 @@ import {
   })
   
   export const vtc = localFont({
-    src: "../fonts/VTC-Letterer-Pro/VTC-Letterer-Pro.woff2",
+    src: "../fonts/VTC-Letterer-Pro/VTC-Letterer-Pro.woff2", 
     variable: "--font-vtc-letterer-pro"
   })
   
@@ -78,16 +78,16 @@ import {
   export const fonts = {
     indieflower,
     thegirlnextdoor,
-    // komika,
+    komika,
     actionman,
     karantula,
     manoskope,
-    // paeteround,
-    // qarmic,
-   //  archrival,
-    // cartoonist,
-    // toontime,
-    // vtc,
+    paeteround,
+    qarmic,
+    archrival,
+    cartoonist,
+    toontime,
+    vtc,
     digitalstrip
   }
   

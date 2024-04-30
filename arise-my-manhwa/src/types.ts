@@ -62,6 +62,7 @@ export interface ImageSegment {
   score: number 
 }
 
+/**Scene has 3 states : pending, completed, error */
 export type RenderedSceneStatus =
   | "pending"
   | "completed"
@@ -78,7 +79,8 @@ export interface RenderedScene {
 }
 
 export interface ImageAnalysisRequest {
-  image: string // in base64
+  // in base64 --> image
+  image: string 
   prompt: string
 }
 
@@ -98,6 +100,7 @@ export type GeneratedPanels = GeneratedPanel[]
 // LLMVendor = what the user configure in the UI (eg. a dropdown item called default server)
 // LLMEngine = the actual engine to use (eg. hugging face)
 export type LLMEngine =
+//  Speific Engine depending on which LLMs you want to work with
   | "INFERENCE_API"
   | "INFERENCE_ENDPOINT"
   | "OPENAI"
@@ -106,6 +109,7 @@ export type LLMEngine =
   | "ANTHROPIC"
 
 export type RenderingEngine =
+  // Specific Rendering engine depending on which rendering models you want to work with
   | "VIDEOCHAIN"
   | "OPENAI"
   | "REPLICATE"
@@ -113,13 +117,14 @@ export type RenderingEngine =
   | "INFERENCE_ENDPOINT"
 
 export type RenderingModelVendor =
+//  Specific Rendering model Vendor/Company depending on which corresponding model you want to work with
   | "SERVER"
   | "OPENAI"
   | "REPLICATE"
   | "HUGGINGFACE"
 
 // LLMVendor = what the user configure in the UI (eg. a dropdown item called default server)
-// LLMEngine = the actual engine to use (eg. hugging face)
+// LLMEngine = the actual engine to use (eg. hugging face, OpenAI, Groq, etc.)
 export type LLMVendor =
   | "SERVER"
   | "OPENAI"
