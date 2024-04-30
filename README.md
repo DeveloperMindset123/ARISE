@@ -1,1 +1,1 @@
-# OFFICIAL REPO FOR AI COMIC GENERATOR
+# Individual Project for Senior Design 1
