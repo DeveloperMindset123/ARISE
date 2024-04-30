@@ -4,10 +4,15 @@ import { v4 as uuidv4 } from "uuid"
 
 import { CreatePostResponse, GetAppPostsResponse, Post, PostVisibility } from "@/types"
 import { filterOutBadWords } from "./censorship"
+import dotenv from 'dotenv';
+
+dotenv.config({path: '.env'});
 
 const apiUrl = `${process.env.COMMUNITY_API_URL || ""}`
 const apiToken = `${process.env.COMMUNITY_API_TOKEN || ""}`
 const appId = `${process.env.COMMUNITY_API_ID || ""}`
+
+console.log("File community.ts has three imported values: apiUrl, apiToken, and appId. Their values are:", apiUrl, apiToken, appId);
 
 export async function postToCommunity({
   prompt,

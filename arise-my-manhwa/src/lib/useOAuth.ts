@@ -104,7 +104,7 @@ export function useOAuth({
         }
       })()
     }
-  }, [debug, hasReceivedFreshOAuth])
+  }, [debug, hasReceivedFreshOAuth, setOAuthResult])
 
   // for debugging purpose
   useEffect(() => {

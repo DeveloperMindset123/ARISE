@@ -1,4 +1,4 @@
-import { Preset } from "../engine/presets"
+import { Preset } from "../engine/presets";
 
 export function getSystemPrompt({
   preset,

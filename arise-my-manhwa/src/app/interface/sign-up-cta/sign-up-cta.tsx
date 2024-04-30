@@ -1,6 +1,7 @@
 import { useOAuth } from "@/lib/useOAuth"
 import { cn } from "@/lib/utils"
 
+//TODO: Make modifications here
 function SignUpCTA() {
   const { login, isLoggedIn } = useOAuth({ debug: false })
   if (isLoggedIn) { return null }
