@@ -6,7 +6,7 @@ import { sleep } from "@/lib/sleep"
 
 import { Preset } from "../engine/presets"
 import { predict } from "./predict"
-import { getSystemPrompt } from "./getSystemPrompt"
+import { getSystemPrompt } from "./getSystemPrompts";
 import { getUserPrompt } from "./getUserPrompt"
 
 export const predictNextPanels = async ({
