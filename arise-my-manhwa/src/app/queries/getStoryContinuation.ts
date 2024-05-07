@@ -1,11 +1,11 @@
-import { Preset } from "../engine/presets"
-import { GeneratedPanel, LLMVendorConfig } from "@/types"
-import { predictNextPanels } from "./predictNextPanels"
-import { joinWords } from "@/lib/joinWords"
-import { sleep } from "@/lib/sleep"
+import { Preset } from "../engine/presets";
+import { GeneratedPanel, LLMVendorConfig } from "@/types";
+import { predictNextPanels } from "./predictNextPanels";
+import { joinWords } from "@/lib/joinWords";
+import { sleep } from "@/lib/sleep";
 import dotenv from "dotenv";
 
-dotenv.config({path: ".env"});
+dotenv.config({ path: ".env" });
 export const getStoryContinuation = async ({
   preset,
   stylePrompt = "",
@@ -13,7 +13,7 @@ export const getStoryContinuation = async ({
   nbPanelsToGenerate,
   maxNbPanels,
   existingPanels = [],
-  llmVendorConfig
+  llmVendorConfig,
 }: {
   preset: Preset;
   stylePrompt?: string;
@@ -21,16 +21,14 @@ export const getStoryContinuation = async ({
   nbPanelsToGenerate: number;
   maxNbPanels: number;
   existingPanels?: GeneratedPanel[];
-  llmVendorConfig: LLMVendorConfig
+  llmVendorConfig: LLMVendorConfig;
 }): Promise<GeneratedPanel[]> => {
-
-  let panels: GeneratedPanel[] = []
-  const startAt: number = (existingPanels.length + 1) || 0
-  const endAt: number = startAt + nbPanelsToGenerate
+  let panels: GeneratedPanel[] = [];
+  const startAt: number = existingPanels.length + 1 || 0;
+  const endAt: number = startAt + nbPanelsToGenerate;
 
   try {
-
-    const prompt = joinWords([ userStoryPrompt ])
+    const prompt = joinWords([userStoryPrompt]);
 
     const panelCandidates: GeneratedPanel[] = await predictNextPanels({
       preset,
@@ -39,9 +37,7 @@ export const getStoryContinuation = async ({
       maxNbPanels,
       existingPanels,
       llmVendorConfig,
-    })
-
-    // console.log("LLM responded with panelCandidates:", panelCandidates)
+    });
 
     // we clean the output from the LLM
     // most importantly, we need to adjust the panel index,
@@ -51,13 +47,15 @@ export const getStoryContinuation = async ({
         panel: startAt + i,
         instructions: `${panelCandidates[i]?.instructions || ""}`,
         caption: `${panelCandidates[i]?.caption || ""}`,
-      })
+      });
     }
-    
   } catch (err) {
-    // console.log("LLM step failed due to:", err)
-    // console.log("we are now switching to a degraded mode, using 4 similar panels")
-    panels = []
+    //TODO: console.log is a temporary solution, requires actual error handling logic to be implemented here
+    console.log("LLM step failed due to:", err);
+    console.log(
+      "we are now switching to a degraded mode, using 4 similar panels"
+    );
+    panels = [];
     for (let p = startAt; p < endAt && p; p++) {
       panels.push({
         panel: p,
@@ -66,12 +64,12 @@ export const getStoryContinuation = async ({
           userStoryPrompt,
           `${".".repeat(p)}`,
         ]),
-        caption: "(Sorry, LLM generation failed: using degraded mode)"
-      })
+        caption: "(Sorry, LLM generation failed: using degraded mode)",
+      });
     }
-    await sleep(2000)
+    await sleep(2000);
     // console.error(err)
   } finally {
-    return panels
+    return panels;
   }
-}
+};
