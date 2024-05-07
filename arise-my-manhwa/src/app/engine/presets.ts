@@ -1,26 +1,20 @@
-import { FontName, actionman, komika, vtc } from "@/lib/fonts"
-import { pick } from "@/lib/pick"
-import { NextFontWithVariable } from "next/dist/compiled/@next/font"
+import { FontName, actionman, komika, vtc } from "@/lib/fonts";
+import { pick } from "@/lib/pick";
+import { NextFontWithVariable } from "next/dist/compiled/@next/font";
 
-export type ComicFamily =
-  | "american"
-  | "asian"
-  | "european"
+export type ComicFamily = "american" | "asian" | "european";
 
-export type ComicColor =
-  | "color"
-  | "grayscale"
-  | "monochrome"
+export type ComicColor = "color" | "grayscale" | "monochrome";
 
 export interface Preset {
-  id: string
-  label: string
-  family: ComicFamily
-  color: ComicColor
-  font: FontName
-  llmPrompt: string
-  imagePrompt: (prompt: string) => string[]
-  negativePrompt: (prompt: string) => string[]
+  id: string;
+  label: string;
+  family: ComicFamily;
+  color: ComicColor;
+  font: FontName;
+  llmPrompt: string;
+  imagePrompt: (prompt: string) => string[];
+  negativePrompt: (prompt: string) => string[];
 }
 
 // ATTENTION!! negative prompts are not supported by the VideoChain API yet
@@ -43,12 +37,11 @@ export const presets: Record<string, Preset> = {
     color: "color",
     font: "actionman",
     llmPrompt: "",
-    imagePrompt: (prompt: string) => [
-      prompt,
-    ],
-    negativePrompt: () => [ ],
+    imagePrompt: (prompt: string) => [prompt],
+    negativePrompt: () => [],
   },
-  /*
+
+  // added this art choice back
   video_3d_style: {
     id: "video_3d_style",
     label: "[video] 3D style",
@@ -56,12 +49,10 @@ export const presets: Record<string, Preset> = {
     color: "color",
     font: "actionman",
     llmPrompt: "new movie",
-    imagePrompt: (prompt: string) => [
-      prompt,
-    ],
-    negativePrompt: () => [ ],
+    imagePrompt: (prompt: string) => [prompt],
+    negativePrompt: () => [],
   },
-  */
+
   japanese_manga: {
     id: "japanese_manga",
     label: "Japanese",
@@ -88,7 +79,7 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
   nihonga: {
@@ -104,7 +95,7 @@ export const presets: Record<string, Preset> = {
       "ancient japanese painting",
       "intricate",
       "detailed",
-      "detailed painting"
+      "detailed painting",
       // "drawing"
     ],
     negativePrompt: () => [
@@ -116,7 +107,7 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
   franco_belgian: {
@@ -125,13 +116,14 @@ export const presets: Record<string, Preset> = {
     family: "european",
     color: "color",
     font: "actionman",
-    llmPrompt: "Franco-Belgian comic (a \"bande dessinée\"), in the style of Franquin, Moebius etc",
+    llmPrompt:
+      'Franco-Belgian comic (a "bande dessinée"), in the style of Franquin, Moebius etc',
     imagePrompt: (prompt: string) => [
       "bande dessinée",
       "franco-belgian comic",
-       prompt,
+      prompt,
       "comic album",
-      "detailed drawing"
+      "detailed drawing",
       // "color drawing"
     ],
     negativePrompt: () => [
@@ -142,7 +134,7 @@ export const presets: Record<string, Preset> = {
       "monochrome",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
   american_comic_90: {
@@ -156,7 +148,7 @@ export const presets: Record<string, Preset> = {
       "digital color comicbook style",
       `modern american comic`,
       prompt,
-      "detailed drawing"
+      "detailed drawing",
       //"single panel",
       // "2010s",
       // "digital print",
@@ -172,12 +164,13 @@ export const presets: Record<string, Preset> = {
       "monochrome",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
 
-  /*
+  // added artstyle back 2
   american_comic_40: {
+    id: "American-1940",
     label: "American (1940)",
     family: "american",
     color: "color",
@@ -192,7 +185,7 @@ export const presets: Record<string, Preset> = {
       "1940",
       "40s",
       "color comicbook",
-      "color drawing"
+      "color drawing",
     ],
     negativePrompt: () => [
       "manga",
@@ -203,10 +196,10 @@ export const presets: Record<string, Preset> = {
       "monochrome",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
-  */
+
   american_comic_50: {
     id: "american_comic_50",
     label: "American (1950)",
@@ -219,9 +212,9 @@ export const presets: Record<string, Preset> = {
       "50s",
       `vintage american color comic`,
       prompt,
-      "detailed drawing"
+      "detailed drawing",
       // "single panel",
-     //  "comicbook style",
+      //  "comicbook style",
       // "color comicbook",
       // "color drawing"
     ],
@@ -234,11 +227,13 @@ export const presets: Record<string, Preset> = {
       "monochrome",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
-  /*
+
+  // added artstyle back 3
   american_comic_60: {
+    id: "American-1960",
     label: "American (1960)",
     family: "american",
     color: "color",
@@ -253,7 +248,7 @@ export const presets: Record<string, Preset> = {
       "1960",
       "60s",
       "color comicbook",
-      "color drawing"
+      "color drawing",
     ],
     negativePrompt: () => [
       "manga",
@@ -264,12 +259,10 @@ export const presets: Record<string, Preset> = {
       "monochrome",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
-  */
 
-  
   flying_saucer: {
     id: "flying_saucer",
     label: "Flying saucer",
@@ -283,7 +276,7 @@ export const presets: Record<string, Preset> = {
       "color pulp comic panel",
       "1940",
       `${prompt}`,
-      "detailed drawing"
+      "detailed drawing",
       // "single panel",
       // "comic album"
     ],
@@ -295,10 +288,10 @@ export const presets: Record<string, Preset> = {
       "monochrome",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
- 
+
   humanoid: {
     id: "humanoid",
     label: "Humanoid",
@@ -325,7 +318,7 @@ export const presets: Record<string, Preset> = {
       "monochrome",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
   haddock: {
@@ -343,8 +336,8 @@ export const presets: Record<string, Preset> = {
       "by Hergé",
       "french comic panel",
       "franco-belgian style",
-     //  "color panel",
-     //  "bande dessinée",
+      //  "color panel",
+      //  "bande dessinée",
       // "single panel",
       // "comic album"
     ],
@@ -356,10 +349,11 @@ export const presets: Record<string, Preset> = {
       "monochrome",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
-  /*
+
+  // added artstyle back 4
   lurid: {
     id: "lurid",
     label: "Lurid",
@@ -379,10 +373,10 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
-  */
+
   armorican: {
     id: "armorican",
     label: "Armorican",
@@ -411,7 +405,7 @@ export const presets: Record<string, Preset> = {
       "monochrome",
       "photo",
       "painting",
-      "3D render"
+      "3D render",
     ],
   },
   render: {
@@ -429,7 +423,7 @@ export const presets: Record<string, Preset> = {
       `Unreal engine`,
       `${prompt}`,
       `crisp`,
-      `sharp`
+      `sharp`,
     ],
     negativePrompt: () => [
       "manga",
@@ -437,7 +431,7 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
   klimt: {
@@ -454,7 +448,7 @@ export const presets: Record<string, Preset> = {
       `Gustav Klimt painting`,
       `${prompt}`,
       `detailed painting`,
-      `intricate details`
+      `intricate details`,
     ],
     negativePrompt: () => [
       "manga",
@@ -462,7 +456,7 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
   medieval: {
@@ -487,10 +481,11 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
-  /*
+
+  // added artstyle back 5
   glass: {
     id: "glass",
     label: "Glass",
@@ -512,11 +507,11 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
-  */
-  /*
+
+  // added artstyle back 5
   voynich: {
     id: "voynich",
     label: "Voynich",
@@ -537,10 +532,10 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
-  */
+
   egyptian: {
     id: "egyptian",
     label: "Egyptian",
@@ -560,11 +555,12 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
-  /*
+
   psx: {
+    id: "psx",
     label: "PSX",
     family: "european",
     color: "color",
@@ -583,12 +579,79 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
-  */
- /*
+
+  manhwa: {
+    id: "manhwa",
+    label: "Korean Manhwa",
+    family: "asian",
+    color: "color", // Manhwas are typically in full color
+    font: "komika", // Choose a dynamic font that fits the lively style of Manhwa
+    llmPrompt: "Korean webtoon style",
+    imagePrompt: (prompt: string) => [
+      `colorful`,
+      `webtoon style`,
+      `Korean art`,
+      `${prompt}`,
+      `detailed characters`,
+    ],
+    negativePrompt: () => [
+      "manga",
+      "american comic",
+      "grayscale",
+      "painting",
+      "3D render",
+    ],
+  },
+
+  ukiyo_e: {
+    id: "ukiyo_e",
+    label: "Ukiyo-e",
+    family: "asian",
+    color: "monochrome", // Traditional woodblock prints are usually monochrome or limited color
+    font: "komika",
+    llmPrompt: "Japanese Ukiyo-e woodblock print",
+    imagePrompt: (prompt: string) => [
+      `traditional Japanese woodblock`,
+      `Ukiyo-e`,
+      `${prompt}`,
+      `minimal color`,
+      `flat perspective`,
+    ],
+    negativePrompt: () => [
+      "western art",
+      "oil painting",
+      "3D render",
+      "digital art",
+    ],
+  },
+
+  art_nouveau: {
+    id: "art_nouveau",
+    label: "Art Nouveau",
+    family: "european",
+    color: "color",
+    font: "vtc", // A more ornate font to match the decorative nature of Art Nouveau
+    llmPrompt: "Art Nouveau style",
+    imagePrompt: (prompt: string) => [
+      `elegant`,
+      `organic forms`,
+      `ornate detailing`,
+      `Art Nouveau`,
+      `${prompt}`,
+    ],
+    negativePrompt: () => [
+      "modern art",
+      "abstract art",
+      "grayscale",
+      "minimalism",
+    ],
+  },
+
   pixel: {
+    id: "pixel",
     label: "Pixel",
     family: "european",
     color: "color",
@@ -607,10 +670,10 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
-  */
+
   photonovel: {
     id: "photonovel",
     label: "Vintage photonovel",
@@ -633,7 +696,7 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
   stockphoto: {
@@ -652,7 +715,7 @@ export const presets: Record<string, Preset> = {
       `instagram`,
       `photoshoot`,
       `${prompt}`,
-      `crisp details`
+      `crisp details`,
     ],
     negativePrompt: () => [
       "manga",
@@ -660,20 +723,25 @@ export const presets: Record<string, Preset> = {
       "american comic",
       "grayscale",
       "monochrome",
-      "painting"
+      "painting",
     ],
   },
-}
+};
 
-export type PresetName = keyof typeof presets
+export type PresetName = keyof typeof presets;
 
-export const defaultPreset: PresetName = "american_comic_50"
+export const defaultPreset: PresetName = "american_comic_50";
 
-export const nonRandomPresets = Object.keys(presets).filter(p => p !== "random")
+export const nonRandomPresets = Object.keys(presets).filter(
+  (p) => p !== "random"
+);
 
-export const getPreset = (preset?: PresetName): Preset => presets[preset || defaultPreset] || presets[defaultPreset]
+export const getPreset = (preset?: PresetName): Preset =>
+  presets[preset || defaultPreset] || presets[defaultPreset];
 
 export const getRandomPreset = (): Preset => {
-  const presetName = pick(Object.keys(presets).filter(preset => preset !== "random")) as PresetName
-  return getPreset(presetName)
-}
+  const presetName = pick(
+    Object.keys(presets).filter((preset) => preset !== "random")
+  ) as PresetName;
+  return getPreset(presetName);
+};
