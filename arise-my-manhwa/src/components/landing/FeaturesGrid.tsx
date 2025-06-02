@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
-// TODO : add shadcn components
-// import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/landing/radixUI/card";
 import { Zap, Image, Star } from "lucide-react";
 
 export const FeaturesGrid = () => {

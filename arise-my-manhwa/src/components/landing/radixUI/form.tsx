@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
-// TODO : add module react-hook-form
 import {
   Controller,
   ControllerProps,

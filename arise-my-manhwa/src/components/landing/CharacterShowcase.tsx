@@ -1,7 +1,7 @@
+"use client";
 import React from "react";
-// TODO : add shadcn import code.
-// import { Card, CardContent } from "@/components/ui/card";
-// import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/landing/radixUI/card";
+import { Badge } from "@/components/landing/radixUI/badge";
 import { Sparkles, Star, BookOpen } from "lucide-react";
 
 export const CharacterShowcase = () => {
@@ -11,7 +11,8 @@ export const CharacterShowcase = () => {
         <CardContent className="p-0 relative">
           <div className="aspect-[3/4] relative overflow-hidden">
             <img
-              src="/lovable-uploads/3d183691-c12a-43fb-b864-1de30ee76268.png"
+              // src="/lovable-uploads/3d183691-c12a-43fb-b864-1de30ee76268.png"
+              src="https://i.ytimg.com/vi/_gd8qB6OUQw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDThuEqXmtLSciENYfaZOpFiy73Dw"
               alt="Sung Jin-Woo Shadow Monarch"
               className="w-full h-full object-cover"
             />
@@ -36,7 +37,8 @@ export const CharacterShowcase = () => {
         <CardContent className="p-0 relative">
           <div className="aspect-[3/4] relative overflow-hidden">
             <img
-              src="/lovable-uploads/729b82dc-34a0-4ff0-bcee-fb3acafa4189.png"
+              // src="/lovable-uploads/729b82dc-34a0-4ff0-bcee-fb3acafa4189.png"
+              src="https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/1432042184990-9NDIM6ZRLER2JKQWHOXJ/batman-and-superman-fight-in-promo-art-for-batman-v-superman"
               alt="Superman and Batman"
               className="w-full h-full object-cover"
             />
@@ -59,7 +61,9 @@ export const CharacterShowcase = () => {
         <CardContent className="p-0 relative">
           <div className="aspect-[3/4] relative overflow-hidden">
             <img
-              src="/lovable-uploads/cca0e27e-92ff-4a81-8805-c1464d2f7b59.png"
+              // src="/lovable-uploads/cca0e27e-92ff-4a81-8805-c1464d2f7b59.png"
+              // src="https://cdnb.artstation.com/p/assets/images/images/052/720/301/large/efilanore-img-2730.jpg?1660515369"
+              src="https://i.pinimg.com/originals/0e/58/6d/0e586d73c91d404d39b87c29586617b8.jpg"
               alt="Sasuke and Itachi"
               className="w-full h-full object-cover"
             />

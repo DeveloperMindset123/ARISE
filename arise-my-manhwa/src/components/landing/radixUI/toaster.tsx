@@ -1,5 +1,4 @@
-// TODO : fix update path for required import
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "./use-toast";
 import {
   Toast,
   ToastClose,

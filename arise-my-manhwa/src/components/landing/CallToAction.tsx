@@ -1,9 +1,7 @@
 import React from "react";
-// TODO : Fix this
-// import { Button } from "@/components/ui/button";
-
+import { Button } from "./radixUI/button";
 interface CallToActionProps {
-  onStartCreating: () => void;
+  onStartCreating?: () => void;
 }
 
 export const CallToAction = ({ onStartCreating }: CallToActionProps) => {
@@ -13,7 +11,7 @@ export const CallToAction = ({ onStartCreating }: CallToActionProps) => {
         Ready to awaken your creativity?
       </h2>
       <p className="text-xl text-gray-300 mb-8">
-        Join thousands of artists creating amazing manhwa and comics
+        Watch as your text inputs transforms into beautiful stories in minutes!
       </p>
       <Button
         onClick={onStartCreating}

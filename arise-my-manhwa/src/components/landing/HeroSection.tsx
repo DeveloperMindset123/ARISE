@@ -1,11 +1,17 @@
 import React from "react";
-// TODO : add shadcn components first
-// import { Button } from "@/components/ui/button";
-// import { Badge } from "@/components/ui/badge";
-import { Sparkles, Zap, Palette, Users, ArrowRight, Wand2 } from "lucide-react";
+import { Button } from "./radixUI/button";
+import {
+  Sparkles,
+  Zap,
+  Palette,
+  Users,
+  ArrowRight,
+  Wand2,
+  Badge,
+} from "lucide-react";
 
 interface HeroSectionProps {
-  onStartCreating: () => void;
+  onStartCreating?: () => void;
 }
 
 export const HeroSection = ({ onStartCreating }: HeroSectionProps) => {

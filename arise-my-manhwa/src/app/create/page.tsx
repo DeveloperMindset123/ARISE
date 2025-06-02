@@ -1,5 +1,5 @@
 "use server";
-
+// TODO : chage up the theme, then potentially add additional functionalities.
 import { ComponentProps } from "react";
 import Head from "next/head";
 import Script from "next/script";
