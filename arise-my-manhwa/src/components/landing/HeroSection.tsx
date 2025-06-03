@@ -17,10 +17,10 @@ interface HeroSectionProps {
 export const HeroSection = ({ onStartCreating }: HeroSectionProps) => {
   return (
     <div className="text-center mb-16 animate-fade-in">
-      <Badge className="mb-6 bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-0 px-6 py-2 text-sm font-semibold">
+      {/* <Badge className="mb-6 bg-gradient-to-r from-purple-500 to-cyan-500 text-white border-0 px-6 py-2 text-sm font-semibold">
         <Sparkles className="w-4 h-4 mr-2" />
         AI-Powered Manhwa Generation
-      </Badge>
+      </Badge> */}
 
       <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent mb-6 animate-scale-in">
         Arise My Manhwa

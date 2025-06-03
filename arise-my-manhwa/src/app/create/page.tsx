@@ -1,5 +1,4 @@
 "use server";
-// TODO : chage up the theme, then potentially add additional functionalities.
 import { ComponentProps } from "react";
 import Head from "next/head";
 import Script from "next/script";
@@ -34,24 +33,28 @@ export default async function IndexPage() {
       </Head>
       <main
         className={cn(
-          `light fixed inset-0 w-screen h-screen flex flex-col items-center`,
-          `bg-zinc-50 text-stone-900 overflow-y-scroll`,
-
-          // important: in "print" mode we need to allow going out of the screen
+          `fixed inset-0 w-screen h-screen flex flex-col items-center`,
+          `bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-y-auto overflow-x-hidden`,
           `inset-auto print:h-auto print:w-auto print:overflow-visible print:relative print:flex-none`
         )}
       >
-        <TooltipProvider delayDuration={100}>
-          <Main />
+        <div
+          className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(6,182,212,0.1)_60deg,transparent_120deg)] animate-spin"
+          style={{ animationDuration: "20s" }}
+        />
+        <div className="relative z-10 w-full">
+          <TooltipProvider delayDuration={100}>
+            <Main />
 
-          {/*
+            {/*
 
-         to display a maintenance page, hide <Main /> and uncomment this unstead:
-         
-              <Maintenance />
+           to display a maintenance page, hide <Main /> and uncomment this unstead:
+           
+                <Maintenance />
 
-         */}
-        </TooltipProvider>
+           */}
+          </TooltipProvider>
+        </div>
 
         <Script src="https://www.googletagmanager.com/gtag/js?id=GTM-WH4MGSHS" />
         <Script id="google-analytics">

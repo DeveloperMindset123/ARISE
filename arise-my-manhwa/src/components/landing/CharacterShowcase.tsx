@@ -4,6 +4,31 @@ import { Card, CardContent } from "@/components/landing/radixUI/card";
 import { Badge } from "@/components/landing/radixUI/badge";
 import { Sparkles, Star, BookOpen } from "lucide-react";
 
+/**
+ * CharacterShowcase component displays a grid of character cards showcasing different comic styles.
+ *
+ * Features:
+ * - Responsive grid layout with 3 columns on medium+ screens
+ * - Cards with hover animations and gradient backgrounds
+ * - Character images with overlay text and badges
+ * - Animated icons for visual flair
+ * - Different style themes (Korean Manhwa, DC/Marvel, etc)
+ *
+ * Each card contains:
+ * - Full-width character image
+ * - Gradient overlay for text visibility
+ * - Character/style title and description
+ * - Style badge
+ * - Animated icon in top-right corner
+ *
+ * The component uses:
+ * - Tailwind CSS for styling
+ * - Radix UI Card and Badge components
+ * - Lucide icons
+ * - CSS transitions and animations
+ * - Responsive design patterns
+ */
+
 export const CharacterShowcase = () => {
   return (
     <div className="grid md:grid-cols-3 gap-8 mt-20 mb-20">

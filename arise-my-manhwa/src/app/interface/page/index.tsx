@@ -4,6 +4,34 @@ import { allLayoutAspectRatios, allLayouts } from "@/app/layouts";
 import { useStore } from "@/app/store";
 import { cn } from "@/lib/utils";
 
+/**
+ * Page component for rendering individual comic pages.
+ *
+ * This component handles:
+ * - Layout selection and rendering for comic panels
+ * - Page aspect ratio and dimensions
+ * - Zoom level scaling
+ * - Page numbering
+ * - Print styling
+ *
+ * Props:
+ * @param {Object} props - Component props
+ * @param {number} props.page - Current page number (0-based index)
+ *
+ * The component uses:
+ * - Global store for state management (zoom, layouts, panel counts)
+ * - Dynamic layout components loaded from layouts config
+ * - Responsive sizing based on zoom level
+ * - Print-specific styling for PDF export
+ * - Conditional page numbering for multi-page comics
+ *
+ * Layout handling:
+ * - Loads layout component dynamically based on selected layout
+ * - Applies correct aspect ratio from layout config
+ * - Calculates panels per page based on layout type
+ * - Maintains consistent panel distribution
+ */
+
 export function Page({ page }: { page: number }) {
   const zoomLevel = useStore((state) => state.zoomLevel);
   const layouts = useStore((state) => state.layouts);

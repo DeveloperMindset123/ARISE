@@ -18,6 +18,45 @@ import { useLocalStorage } from "usehooks-ts";
 import { localStorageKeys } from "../settings-dialog/localStorageKeys";
 import { defaultSettings } from "../settings-dialog/defaultSettings";
 
+/**
+ * Panel component and related interfaces for the comic generation app.
+ *
+ * This file handles:
+ * - Individual comic panel rendering and management
+ * - Panel captions and text bubbles
+ * - Panel regeneration and editing
+ * - Panel zoom and layout
+ * - Mouse interactions and hover states
+ *
+ * @module Panel
+ * @category Interface
+ * @subcategory Comic Panel
+ *
+ * The component maintains state for:
+ * - Panel content and captions
+ * - Mouse hover states
+ * - Panel dimensions and layout
+ * - Generation status
+ * - Edit modal visibility
+ *
+ * It coordinates between:
+ * - The rendering engine for image generation
+ * - The global store for state management
+ * - UI components for editing and display
+ * - Layout system for panel positioning
+ *
+ * @example
+ * ```tsx
+ * <Panel
+ *   page={0}
+ *   nbPanels={4}
+ *   panel={0}
+ *   width={1}
+ *   height={1}
+ * />
+ * ```
+ */
+
 export function Panel({
   page,
   nbPanels,
@@ -385,7 +424,9 @@ export function Panel({
       onMouseLeave={() => setMouseOver(false)}
     >
       {prompt && rendered.assetUrl && caption ? (
-        <Bubble onChange={handleSaveCaption}>{caption}</Bubble>
+        <Bubble onChange={handleSaveCaption} position="bottom-center">
+          {caption}
+        </Bubble>
       ) : null}
       <div
         className={cn(
@@ -399,7 +440,7 @@ export function Panel({
         <div
           onClick={hasSucceededOrFailed ? handleReload : undefined}
           className={cn(
-            `bg-stone-100 rounded-lg`,
+            `bg-stone-100`,
             `flex flex-row space-x-2 items-center`,
             `py-1 px-2 md:py-2 md:px-3`,
             `transition-all duration-200 ease-in-out`,
@@ -408,17 +449,20 @@ export function Panel({
               : "opacity-50 cursor-wait",
             mouseOver && hasSucceededOrFailed
               ? `scale-95 hover:scale-100 hover:opacity-100`
-              : `scale-0`
+              : `scale-0`,
+            `text-black`,
+            `fill-black`
           )}
         >
-          <RxReload className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5" />
+          <RxReload className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 text-black" />
           <span
             className={cn(
               zoomLevel > 80
                 ? `text-xs md:text-sm lg:text-base`
                 : zoomLevel > 40
                 ? `text-2xs md:text-xs lg:text-sm`
-                : `text-3xs md:text-2xs lg:text-xs`
+                : `text-3xs md:text-2xs lg:text-xs`,
+              `text-black`
             )}
           >
             Redraw
@@ -438,17 +482,20 @@ export function Panel({
               hasSucceededOrFailed ? "opacity-95" : "opacity-50",
               mouseOver && hasSucceededOrFailed
                 ? `scale-95 hover:scale-100 hover:opacity-100`
-                : `scale-0`
+                : `scale-0`,
+              `text-black`,
+              `fill-black`
             )}
           >
-            <RxPencil2 className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5" />
+            <RxPencil2 className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 text-black" />
             <span
               className={cn(
                 zoomLevel > 80
                   ? `text-xs md:text-sm lg:text-base`
                   : zoomLevel > 40
                   ? `text-2xs md:text-xs lg:text-sm`
-                  : `text-3xs md:text-2xs lg:text-xs`
+                  : `text-3xs md:text-2xs lg:text-xs`,
+                `text-black`
               )}
             >
               Edit
