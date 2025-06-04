@@ -152,7 +152,7 @@ export const filterOutBadWords = (sentence: string) => {
 
   const words = sentence
     .replaceAll(/[^a-zA-Z0-9]/gi, " ")
-    .replaceAll(/\s+/giis, " ")
+    .replaceAll(/\s+/, " ")
     .trim()
     .split(" ");
 
