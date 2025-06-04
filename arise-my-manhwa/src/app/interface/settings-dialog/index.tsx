@@ -34,6 +34,7 @@ import { Slider } from "@/components/ui/slider";
 import { fonts } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { SectionTitle } from "./section-title";
+import { useStore } from "@/app/store";
 
 export function SettingsDialog() {
   const [isOpen, setOpen] = useState(false);
@@ -125,6 +126,8 @@ export function SettingsDialog() {
       localStorageKeys.userDefinedMaxNumberOfPages,
       defaultSettings.userDefinedMaxNumberOfPages
     );
+  const [font, setFontLocal] = useLocalStorage<string>("font", "actionman");
+  const setFont = useStore((state) => state.setFont);
 
   const {
     config: { maxNbPages },
@@ -181,6 +184,32 @@ export function SettingsDialog() {
               />
             </Field>
           )}
+          <Field>
+            <Label>Comic font</Label>
+            <Select
+              value={font}
+              onValueChange={(value) => {
+                setFontLocal(value);
+                setFont(value as keyof typeof fonts);
+                localStorage.setItem("font", value);
+              }}
+            >
+              <SelectTrigger className="bg-white text-black">
+                <SelectValue placeholder="Select a font" />
+              </SelectTrigger>
+              <SelectContent>
+                {Object.keys(fonts).map((fontKey) => (
+                  <SelectItem
+                    key={fontKey}
+                    value={fontKey}
+                    className={fonts[fontKey as keyof typeof fonts].className}
+                  >
+                    {fontKey}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Field>
           <div className={cn(`grid gap-2 pt-3 pb-1`, `text-stone-800`)}>
             {
               // renderingModelVendor === "SERVER" && <>
@@ -271,14 +300,38 @@ export function SettingsDialog() {
                 </Field>
                 <Field>
                   <Label>Inference API model (custom SDXL or SDXL LoRA):</Label>
-                  <Input
-                    className={fonts.actionman.className}
-                    placeholder="Name of the Inference API model"
-                    onChange={(x) => {
-                      setHuggingfaceInferenceApiModel(x.target.value);
-                    }}
+                  <Select
+                    onValueChange={setHuggingfaceInferenceApiModel}
                     value={huggingfaceInferenceApiModel}
-                  />
+                  >
+                    <SelectTrigger className="bg-white text-black">
+                      <SelectValue placeholder="Select a model" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="stabilityai/stable-diffusion-xl-base-1.0">
+                        Stable Diffusion XL
+                      </SelectItem>
+                      <SelectItem value="runwayml/stable-diffusion-v1-5">
+                        Stable Diffusion v1.5
+                      </SelectItem>
+                      <SelectItem value="prompthero/openjourney">
+                        OpenJourney
+                      </SelectItem>
+                      <SelectItem value="custom">
+                        Custom (enter below)
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {huggingfaceInferenceApiModel === "custom" && (
+                    <Input
+                      className={fonts.actionman.className}
+                      placeholder="Custom model name"
+                      onChange={(x) => {
+                        setHuggingfaceInferenceApiModel(x.target.value);
+                      }}
+                      value={huggingfaceInferenceApiModel}
+                    />
+                  )}
                 </Field>
                 <Field>
                   <Label>
@@ -330,14 +383,31 @@ export function SettingsDialog() {
                 </Field>
                 <Field>
                   <Label>OpenAI image model:</Label>
-                  <Input
-                    className={fonts.actionman.className}
-                    placeholder="OpenAI image model"
-                    onChange={(x) => {
-                      setOpenaiApiModel(x.target.value);
-                    }}
+                  <Select
+                    onValueChange={setOpenaiApiModel}
                     value={openaiApiModel}
-                  />
+                  >
+                    <SelectTrigger className="bg-white text-black">
+                      <SelectValue placeholder="Select a model" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="dall-e-3">DALL·E 3</SelectItem>
+                      <SelectItem value="dall-e-2">DALL·E 2</SelectItem>
+                      <SelectItem value="custom">
+                        Custom (enter below)
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {openaiApiModel === "custom" && (
+                    <Input
+                      className={fonts.actionman.className}
+                      placeholder="Custom model name"
+                      onChange={(x) => {
+                        setOpenaiApiModel(x.target.value);
+                      }}
+                      value={openaiApiModel}
+                    />
+                  )}
                 </Field>
               </>
             )}
@@ -358,14 +428,33 @@ export function SettingsDialog() {
                 </Field>
                 <Field>
                   <Label>Replicate model name:</Label>
-                  <Input
-                    className={fonts.actionman.className}
-                    placeholder="Name of the Replicate model"
-                    onChange={(x) => {
-                      setReplicateApiModel(x.target.value);
-                    }}
+                  <Select
+                    onValueChange={setReplicateApiModel}
                     value={replicateApiModel}
-                  />
+                  >
+                    <SelectTrigger className="bg-white text-black">
+                      <SelectValue placeholder="Select a model" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="stabilityai/sdxl">SDXL</SelectItem>
+                      <SelectItem value="stabilityai/stable-diffusion">
+                        Stable Diffusion
+                      </SelectItem>
+                      <SelectItem value="custom">
+                        Custom (enter below)
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {replicateApiModel === "custom" && (
+                    <Input
+                      className={fonts.actionman.className}
+                      placeholder="Custom model name"
+                      onChange={(x) => {
+                        setReplicateApiModel(x.target.value);
+                      }}
+                      value={replicateApiModel}
+                    />
+                  )}
                 </Field>
                 <Field>
                   <Label>Model version:</Label>

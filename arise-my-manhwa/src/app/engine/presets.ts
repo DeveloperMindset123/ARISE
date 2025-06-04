@@ -1,3 +1,4 @@
+// Defines artstyles
 import { FontName, actionman, komika, vtc } from "@/lib/fonts";
 import { pick } from "@/lib/pick";
 import { NextFontWithVariable } from "next/dist/compiled/@next/font";

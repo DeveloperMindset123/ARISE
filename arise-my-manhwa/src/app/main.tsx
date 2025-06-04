@@ -2,13 +2,14 @@
 
 import { Suspense, useEffect, useRef, useState, useTransition } from "react";
 import { useLocalStorage } from "usehooks-ts";
-
 import { cn } from "@/lib/utils";
 import { fonts } from "@/lib/fonts";
 import { GeneratedPanel } from "@/types";
 import { joinWords } from "@/lib/joinWords";
 import { useDynamicConfig } from "@/lib/useDynamicConfig";
 import { Button } from "@/components/ui/button";
+import { parallelRenderPanels } from "@/lib/parallelRenderPanels";
+import { getSettings } from "./interface/settings-dialog/getSettings";
 
 import { TopMenu } from "./interface/top-menu";
 import { useStore } from "./store";
@@ -18,8 +19,27 @@ import { Page } from "./interface/page";
 import { getStoryContinuation } from "./queries/getStoryContinuation";
 import { localStorageKeys } from "./interface/settings-dialog/localStorageKeys";
 import { defaultSettings } from "./interface/settings-dialog/defaultSettings";
-import { SignUpCTA } from "./interface/sign-up-cta";
 import { useLLMVendorConfig } from "@/lib/useLLMVendorConfig";
+/**
+ * Main component for the comic generation app.
+ *
+ * This file handles:
+ * - Comic page layout and rendering
+ * - Story generation using LLM
+ * - Panel generation and management
+ * - Page navigation and controls
+ * - Zoom functionality
+ * - Loading states and transitions
+ *
+ * The component maintains state for:
+ * - Current/max number of pages and panels
+ * - Generated panel content and captions
+ * - Story generation status
+ * - User settings like zoom level
+ *
+ * It coordinates between the LLM for story generation and
+ * the UI components to display the comic pages and controls.
+ */
 
 export default function Main() {
   const [_isPending, startTransition] = useTransition();
@@ -137,8 +157,6 @@ export default function Main() {
         .split("||")
         .map((x) => x.trim());
 
-      // we have to limit the size of the prompt, otherwise the rest of the style won't be followed
-
       let limitedStylePrompt = stylePrompt.trim().slice(0, 77).trim();
       if (limitedStylePrompt.length !== stylePrompt.length) {
         console.log(
@@ -147,167 +165,127 @@ export default function Main() {
         );
       }
 
-      // new experimental prompt: let's drop the user prompt, and only use the style
       const lightPanelPromptPrefix: string = joinWords(
         preset.imagePrompt(limitedStylePrompt)
       );
 
-      // this prompt will be used if the LLM generation failed
       const degradedPanelPromptPrefix: string = joinWords([
         ...preset.imagePrompt(limitedStylePrompt),
-
-        // we re-inject the story, then
         userStoryPrompt,
       ]);
 
-      // we always generate panels 2 by 2
-      const nbPanelsToGenerate = 2;
-
-      for (
-        let currentPanel = previousNbPanels;
-        currentPanel < currentNbPanels;
-        currentPanel += nbPanelsToGenerate
-      ) {
-        try {
-          const candidatePanels = await getStoryContinuation({
-            preset,
-            stylePrompt,
-            userStoryPrompt,
-            nbPanelsToGenerate,
-            maxNbPanels,
-
-            // existing panels are critical here: this is how we can
-            // continue over an existing story
-            existingPanels: ref.current.existingPanels,
-
-            llmVendorConfig,
-          });
-          // console.log("LLM generated some new panels:", candidatePanels)
-
-          ref.current.existingPanels.push(...candidatePanels);
-          // console.log("ref.current.existingPanels.push(...candidatePanels) successful, now we have ref.current.existingPanels = ", ref.current.existingPanels)
-
-          // console.log(`main.tsx: converting the ${nbPanelsToGenerate} new panels into image prompts..`)
-
-          const startAt = currentPanel;
-          const endAt = currentPanel + nbPanelsToGenerate;
-          for (let p = startAt; p < endAt; p++) {
-            ref.current.newCaptions.push(
-              ref.current.existingPanels[p]?.caption.trim() || "..."
-            );
-            const newPanel = joinWords([
-              // what we do here is that ideally we give full control to the LLM for prompting,
-              // unless there was a catastrophic failure, in that case we preserve the original prompt
-              ref.current.existingPanels[p]?.instructions
-                ? lightPanelPromptPrefix
-                : degradedPanelPromptPrefix,
-
-              ref.current.existingPanels[p]?.instructions || "",
-            ]);
-            ref.current.newPanelsPrompts.push(newPanel);
-
-            console.log(
-              `main.tsx: image prompt for panel ${p} => "${newPanel}"`
-            );
-          }
-
-          // update the frontend
-          setCaptions(ref.current.newCaptions);
-          setPanels(ref.current.newPanelsPrompts);
-
-          setGeneratingStory(false);
-        } catch (err) {
-          console.log("main.tsx: LLM generation failed:", err);
-          setGeneratingStory(false);
-          break;
-        }
-        if (currentPanel > currentNbPanels / 2) {
-          console.log("main.tsx: we are halfway there, hold tight!");
-          // setWaitABitMore(true)
-        }
-
-        // we could sleep here if we want to
-        // await sleep(1000)
+      // Instead of generating panels 2 by 2, generate all at once in parallel
+      const nbPanelsToGenerate = currentNbPanels - previousNbPanels;
+      if (nbPanelsToGenerate <= 0) {
+        setGeneratingStory(false);
+        return;
       }
 
-      /*
-      setTimeout(() => {
-        setGeneratingStory(false)
-        setWaitABitMore(false)
-      }, enableRateLimiter ? 12000 : 0)
-      */
+      try {
+        // Get all panel instructions/captions in one go
+        const candidatePanels = await getStoryContinuation({
+          preset,
+          stylePrompt,
+          userStoryPrompt,
+          nbPanelsToGenerate,
+          maxNbPanels,
+          existingPanels: ref.current.existingPanels,
+          llmVendorConfig,
+        });
+
+        ref.current.existingPanels.push(...candidatePanels);
+
+        // Prepare all prompts for rendering
+        const panelRenderInputs = candidatePanels.map((panel, idx) => {
+          const instructions = panel.instructions || "";
+          const prompt = instructions
+            ? joinWords([lightPanelPromptPrefix, instructions])
+            : degradedPanelPromptPrefix;
+          return {
+            prompt,
+            width: 1024, // or dynamic per panel
+            height: 1024, // or dynamic per panel
+            nbFrames: preset.id.startsWith("video") ? 16 : 1,
+            withCache: true,
+          };
+        });
+
+        // Parallel render all panels
+        const settings = { ...defaultSettings, ...getSettings() };
+        const renderedScenes = await parallelRenderPanels(
+          panelRenderInputs,
+          settings
+        );
+
+        // Update captions and prompts
+        const newCaptions = candidatePanels.map(
+          (panel) => panel.caption.trim() || "..."
+        );
+        const newPrompts = panelRenderInputs.map((input) => input.prompt);
+
+        setCaptions(newCaptions);
+        setPanels(newPrompts);
+        // Optionally, update renderedScenes in store if needed
+        // setRenderedScenes(renderedScenes)
+
+        setGeneratingStory(false);
+      } catch (err) {
+        console.log("main.tsx: LLM or rendering failed:", err);
+        setGeneratingStory(false);
+      }
     });
-  }, [prompt, preset?.label, previousNbPanels, currentNbPanels, maxNbPanels]); // important: we need to react to preset changes too
+  }, [prompt, preset?.label, previousNbPanels, currentNbPanels, maxNbPanels]);
 
   return (
     <Suspense>
-      <TopMenu />
-      <div
-        className={cn(
-          `flex items-start w-screen h-screen pt-24 md:pt-[72px] overflow-y-scroll`,
-          `transition-all duration-200 ease-in-out`,
-          zoomLevel > 105 ? `px-0` : `pl-1 pr-8 md:pl-16 md:pr-16`,
-
-          // important: in "print" mode we need to allow going out of the screen
-          `print:pt-0 print:px-0 print:pl-0 print:pr-0 print:h-auto print:w-auto print:overflow-visible`,
-
-          fonts.actionman.className
-        )}
-      >
-        <div
-          className={cn(
-            `flex flex-col w-full`,
-            zoomLevel > 105 ? `items-start` : `items-center`
-          )}
-        >
-          <div
-            className={cn(
-              `comic-page`,
-
-              `grid grid-cols-1`,
-              currentNbPages > 1 ? `md:grid-cols-2` : ``,
-
-              // spaces between pages
-              `gap-x-3 gap-y-4 md:gap-x-8 lg:gap-x-12 xl:gap-x-16`,
-
-              // when printed
-              `print:gap-x-3 print:gap-y-4 print:grid-cols-1`
-            )}
-            style={{
-              width: `${zoomLevel}%`,
-            }}
-          >
-            {Array(currentNbPages)
-              .fill(0)
-              .map((_, i) => (
-                <Page key={i} page={i} />
-              ))}
-          </div>
-          {showNextPageButton && (
-            <div
-              className={cn(
-                `flex flex-col space-y-2 pt-2 pb-6 text-gray-600 dark:text-gray-600`,
-                `print:hidden`
-              )}
-            >
-              <div>Happy with your story?</div>
-              <div>
-                You can{" "}
-                <Button
-                  onClick={() => {
-                    setCurrentNbPages(currentNbPages + 1);
-                  }}
-                >
-                  Add page {currentNbPages + 1} 👀
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
+      <div className={fonts[font]?.className || ""}>
+        <TopMenu />
       </div>
-      <SignUpCTA />
-      <Zoom />
-      <BottomBar />
+      {/* Left Character Image (desktop only) */}
+      <div className="hidden lg:block fixed left-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none animate-float-slow"></div>
+      {/* Right Character Image (desktop only) */}
+      <div className="hidden lg:block fixed right-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none animate-float-slow-reverse"></div>
+      <div className={fonts[font]?.className || ""}>
+        <div className="flex items-center justify-center min-h-[80vh] w-full px-2 md:px-8">
+          <div className="w-full max-w-5xl bg-white/10 border border-white/20 rounded-2xl shadow-2xl backdrop-blur-lg p-6 md:p-12 flex flex-col items-center space-y-8">
+            <div className="w-full flex flex-col items-center">
+              <div
+                className={cn(
+                  `comic-page`,
+                  `grid grid-cols-1`,
+                  currentNbPages > 1 ? `md:grid-cols-2` : ``,
+                  `gap-x-3 gap-y-4 md:gap-x-8 lg:gap-x-12 xl:gap-x-16`,
+                  `print:gap-x-3 print:gap-y-4 print:grid-cols-1`
+                )}
+                style={{ width: `${zoomLevel}%` }}
+              >
+                {Array(currentNbPages)
+                  .fill(0)
+                  .map((_, i) => (
+                    <Page key={i} page={i} />
+                  ))}
+              </div>
+              {showNextPageButton && (
+                <div className="flex flex-col space-y-2 pt-2 pb-6 text-gray-300 print:hidden">
+                  <div>Happy with your story?</div>
+                  <div>
+                    <Button
+                      onClick={() => {
+                        setCurrentNbPages(currentNbPages + 1);
+                      }}
+                      className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white font-semibold shadow-lg"
+                    >
+                      Add page {currentNbPages + 1} 👀
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <Zoom />
+        <BottomBar />
+      </div>
       <div
         className={cn(
           `print:hidden`,

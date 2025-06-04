@@ -38,3 +38,14 @@ body {
   height: auto !important;
   /* max-width: fit-content !important; */
 }
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(-50%) translateY(-10px); }
+  50% { transform: translateY(-50%) translateY(10px); }
+}
+@keyframes float-slow-reverse {
+  0%, 100% { transform: translateY(-50%) translateY(10px); }
+  50% { transform: translateY(-50%) translateY(-10px); }
+}
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+.animate-float-slow-reverse { animation: float-slow-reverse 6s ease-in-out infinite; }
