@@ -12,7 +12,7 @@ export function Progress({
   resetKey?: string;
   className?: string;
 }) {
-  const timeoutRef = useRef<any>();
+  const timeoutRef = useRef<any>(null);
   const [progressPercent, setProcessPercent] = useState(0);
   const progressRef = useRef(0);
   const isLoadingRef = useRef(isLoading);
