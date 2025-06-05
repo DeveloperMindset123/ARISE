@@ -3,6 +3,11 @@ import { FontName, actionman, komika, vtc } from "@/lib/fonts";
 import { pick } from "@/lib/pick";
 import { NextFontWithVariable } from "next/dist/compiled/@next/font";
 
+/**
+ * @description Defines artstyle configurations.
+ * @detail negative prompts specifies what NOT to include within generation
+ */
+
 export type ComicFamily = "american" | "asian" | "european";
 
 export type ComicColor = "color" | "grayscale" | "monochrome";
@@ -17,8 +22,6 @@ export interface Preset {
   imagePrompt: (prompt: string) => string[];
   negativePrompt: (prompt: string) => string[];
 }
-
-// ATTENTION!! negative prompts are not supported by the VideoChain API yet
 
 export const presets: Record<string, Preset> = {
   random: {
@@ -66,12 +69,6 @@ export const presets: Record<string, Preset> = {
       `detailed drawing`,
       `japanese manga`,
       prompt,
-      // "single panel",
-      // "manga",
-      //  "japanese",
-      // "intricate",
-      // "detailed",
-      // "drawing"
     ],
     negativePrompt: () => [
       "franco-belgian comic",
@@ -96,8 +93,11 @@ export const presets: Record<string, Preset> = {
       "ancient japanese painting",
       "intricate",
       "detailed",
-      "detailed painting",
-      // "drawing"
+      `detailed painting`,
+      `The expression is simple`,
+      `Does not seek realism`,
+      `Generally does not have an outline`,
+      `The color tone is not rich`,
     ],
     negativePrompt: () => [
       "franco-belgian comic",
@@ -125,6 +125,10 @@ export const presets: Record<string, Preset> = {
       prompt,
       "comic album",
       "detailed drawing",
+      "organic and flowing lines",
+      "Floral and natural motifs",
+      "Rejection of historicism",
+      "depiction focused toward modern life of 20th century",
       // "color drawing"
     ],
     negativePrompt: () => [
@@ -136,6 +140,7 @@ export const presets: Record<string, Preset> = {
       "photo",
       "painting",
       "3D render",
+      "lack of traditional and historical themes",
     ],
   },
   american_comic_90: {

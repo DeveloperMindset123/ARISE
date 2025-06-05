@@ -1,15 +1,29 @@
-export type ProjectionMode = "cartesian" | "spherical";
+/**
+ * @Topic Understanding the difference between type and interface
+ * @interface @detail primarily used to define the structure of objects
+ * @interface @detail support declaration merging, meaning multiple declarations of the same interface name within the same scope are automatically merged.
+ * @interface @detail extendable using "extends" keyword, facilitating the creation of new interfaces based on existing ones.
+ * @interface @detail offers slightly better performance in typescript compiler because they only need to maintain references to their name
+ *
+ * @type @detail more flexible and can define a wider range of data types, including primitive types, unions and intersections.
+ * @type @detail do not support declaration merging.
+ * @type @detail extendable using intersections (&), but this does not have the same semantic clarity or automatic merging capabillities as interfaces.
+ * @type @detail can be used for objects, arrays, primitives and more.
+ * @type @detail used for unions ( | ) and intersections (&) of multiple types.
+ * @type @detail create new object types each time they're used, which can be less efficient than interfaces.
+ */
 
+export type ProjectionMode = "cartesian" | "spherical";
 export type CacheMode = "use" | "renew" | "ignore";
 
 export interface RenderRequest {
   prompt: string;
 
   // whether to use video segmentation
-  // disabled (default)
+  // allframes (default)
   // firstframe: we only analyze the first frame
   // allframes: we analyze all the frames
-  segmentation: "disabled" | "firstframe" | "allframes";
+  segmentation: "allframes" | "firstframe" | "disabled";
 
   // segmentation will only be executed if we have a non-empty list of actionnables
   // actionnables are names of things like "chest", "key", "tree", "chair" etc

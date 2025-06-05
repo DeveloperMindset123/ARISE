@@ -1,23 +1,3 @@
-// import { dirtyLLMResponseCleaner } from "./dirtyLLMResponseCleaner"
-
-// export function cleanJson(input: string): string {
-
-//   if (input.includes('```')) {
-//     input = input.split('```')[0]
-//   }
-//   let tmp = dirtyLLMResponseCleaner(input)
-
-//   // we only keep what's after the first [
-//   tmp = `[${tmp.split("[").pop() || ""}`
-
-//   // and before the first ]
-//   tmp = `${tmp.split("]").shift() || ""}]`
-
-//   tmp = dirtyLLMResponseCleaner(tmp)
-
-//   return tmp
-// }
-
 import { dirtyLLMResponseCleaner } from "./dirtyLLMResponseCleaner";
 
 /**
@@ -34,6 +14,8 @@ import { dirtyLLMResponseCleaner } from "./dirtyLLMResponseCleaner";
  * @returns {string} A cleaner string that should be a valid JSON array.
  */
 export function cleanJson(input: string): string {
+  // TODO : remove later
+  console.log(`Original dirty JSON input string : ${input}`);
   if (input.includes("```")) {
     // If the input contains markdown code blocks, take only the content before the first one.
     input = input.split("```")[0];
@@ -46,7 +28,11 @@ export function cleanJson(input: string): string {
   // And before the first ']' to ensure we end with an array.
   tmp = `${tmp.split("]").shift() || ""}]`;
 
-  tmp = dirtyLLMResponseCleaner(tmp); // Apply the cleaner again after structural trimming.
+  // Apply the cleaner again after structural trimming.
+  tmp = dirtyLLMResponseCleaner(tmp);
+
+  // TODO : remove later
+  console.log(`Cleaned json response : ${tmp}`);
 
   return tmp;
 }

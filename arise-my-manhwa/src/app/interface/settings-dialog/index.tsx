@@ -146,7 +146,7 @@ export function SettingsDialog() {
       <DialogContent className="w-full sm:max-w-[500px] md:max-w-[700px] bg-gray-100">
         <DialogHeader>
           <DialogDescription className="w-full text-center text-2xl font-bold text-stone-800">
-            AI Comic Factory Settings
+            ARISE My Manhwa Settings
           </DialogDescription>
         </DialogHeader>
         <div className="overflow-y-scroll h-[75vh] md:h-[70vh]">
