@@ -3,7 +3,7 @@ const nextConfig = {
   output: "standalone",
 
   experimental: {
-    serverComponentsExternalPackages: ["worker_threads"],
+    // serverComponentsExternalPackages: ["worker_threads"],
     serverActions: {
       bodySizeLimit: "8mb",
     },
@@ -11,3 +11,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+// export default nextConfig;

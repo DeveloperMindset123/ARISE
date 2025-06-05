@@ -68,6 +68,8 @@ export const presets: Record<string, Preset> = {
       `grayscale`,
       `detailed drawing`,
       `japanese manga`,
+      `pencil/hand drawn`,
+      `can be adopted into anime`,
       prompt,
     ],
     negativePrompt: () => [

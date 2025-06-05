@@ -50,7 +50,10 @@ export function Progress({
         className
       )}
     >
-      <ProgressBar progressPercentage={progressPercent} />
+      <ProgressBar
+        progressPercentage={progressPercent}
+        text={progressPercent.toString()}
+      />
     </div>
   );
 }

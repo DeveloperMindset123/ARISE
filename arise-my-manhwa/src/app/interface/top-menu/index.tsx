@@ -246,7 +246,6 @@ export function TopMenu() {
             </SelectTrigger>
             <SelectContent>
               {Object.keys(fonts).map((fontKey) => (
-                // TODO : fix font logic here
                 <SelectItem
                   key={fontKey}
                   value={fontKey}

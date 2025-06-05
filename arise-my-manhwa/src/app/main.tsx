@@ -238,18 +238,14 @@ export default function Main() {
 
   return (
     <Suspense>
-      <div
-        className={fonts[font]?.className || (fonts.thegirlnextdoor as string)}
-      >
+      <div className={fonts[font]?.className || ""}>
         <TopMenu />
       </div>
       {/* Left Character Image (desktop only) */}
       <div className="hidden lg:block fixed left-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none animate-float-slow"></div>
       {/* Right Character Image (desktop only) */}
       <div className="hidden lg:block fixed right-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none animate-float-slow-reverse"></div>
-      <div
-        className={fonts[font]?.className || (fonts.thegirlnextdoor as string)}
-      >
+      <div className={fonts[font]?.className || ""}>
         <div className="flex items-center justify-center min-h-[80vh] w-full px-2 md:px-8">
           <div className="w-full max-w-5xl bg-white/10 border border-white/20 rounded-2xl shadow-2xl backdrop-blur-lg p-6 md:p-12 flex flex-col items-center space-y-8">
             <div className="w-full flex flex-col items-center">
@@ -299,8 +295,7 @@ export default function Main() {
           isGeneratingStory
             ? `bg-zinc-50/30 backdrop-blur-md`
             : `bg-zinc-50/0 backdrop-blur-none pointer-events-none`,
-          // fonts.actionman.className
-          fonts.thegirlnextdoor
+          fonts.actionman.className
         )}
       >
         <div

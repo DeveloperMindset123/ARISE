@@ -33,13 +33,12 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/Komika-Hand/Komika-Hand.woff2`
  * and assigned a CSS variable `--font-komika` for use in CSS.
  */
-
-// TODO : commented out due to build error
-// export const komika = localFont({
-//   // src: "../fonts/Komika-Hand/Komika-Hand.woff2",
-//   src: "../fonts/Komika-Hand/Komika-Hand.woff2",
-//   variable: "--font-komika",
-// });
+export const komika = localFont({
+  // src: "../fonts/Komika-Hand/Komika-Hand.woff2",
+  src: "../fonts/komika-hand/komika-hand.woff",
+  display: "swap",
+  variable: "--font-komika",
+});
 
 /**
  * Configures and loads the 'Action Man' font from a local file.
@@ -47,12 +46,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/Action-Man/Action-Man.woff2`
  * and assigned a CSS variable `--font-action-man` for use in CSS.
  */
-
-// TODO : commented out due to build error
-// export const actionman = localFont({
-//   src: "../fonts/Action-Man/Action-Man.woff2",
-//   variable: "--font-action-man",
-// });
+export const actionman = localFont({
+  src: "../fonts/action_man/action-man.woff",
+  display: "swap",
+  variable: "--font-action-man",
+});
 
 /**
  * Configures and loads the 'Karantula' font from a local file.
@@ -60,12 +58,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/Karantula/Karantula.woff2`
  * and assigned a CSS variable `--font-karantula` for use in CSS.
  */
-
-// TODO : commented out due to build error
-// export const karantula = localFont({
-//   src: "../fonts/Karantula/Karantula.woff2",
-//   variable: "--font-karantula",
-// });
+export const karantula = localFont({
+  src: "../fonts/karantula/karantula.woff",
+  display: "swap",
+  variable: "--font-karantula",
+});
 
 /**
  * Configures and loads the 'Manoskope Bold' font from a local file.
@@ -73,12 +70,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/Manoskope/MANOSKOPE-Bold.woff2`
  * and assigned a CSS variable `--font-manoskope` for use in CSS.
  */
-
-// TODO : commented out due to build error
-// export const manoskope = localFont({
-//   src: "../fonts/Manoskope/MANOSKOPE-Bold.woff2",
-//   variable: "--font-manoskope",
-// });
+export const manoskope = localFont({
+  src: "../fonts/manoskope/manoskope-bold.woff",
+  display: "swap",
+  variable: "--font-manoskope",
+});
 
 /**
  * Configures and loads the 'Paete Round' font from a local file.
@@ -86,11 +82,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/Paete-Round/Paete-Round.woff2`
  * and assigned a CSS variable `--font-paete-round` for use in CSS.
  */
-// TODO : commented out due to build error
-// export const paeteround = localFont({
-//   src: "../fonts/Paete-Round/Paete-Round.woff2",
-//   variable: "--font-paete-round",
-// });
+export const paeteround = localFont({
+  src: "../fonts/paete-round/paete-round.woff",
+  display: "swap",
+  variable: "--font-paete-round",
+});
 
 /**
  * Configures and loads the 'Qarmic Sans Abridged' font from a local file.
@@ -98,11 +94,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/Qarmic-Sans/Qarmic-Sans-Abridged.woff2`
  * and assigned a CSS variable `--font-qarmic-sans` for use in CSS.
  */
-// TODO : commented out due to build error
-// export const qarmic = localFont({
-//   src: "../fonts/Qarmic-Sans/Qarmic-Sans-Abridged.woff2",
-//   variable: "--font-qarmic-sans",
-// });
+export const qarmic = localFont({
+  src: "../fonts/qarmic-sans/qarmic-sans-abridged.woff",
+  display: "swap",
+  variable: "--font-qarmic-sans",
+});
 
 /**
  * Configures and loads the 'SF Arch Rival' font from a local file.
@@ -110,11 +106,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/SF-Arch-Rival/SF-Arch-Rival.woff2`
  * and assigned a CSS variable `--font-sf-arch-rival` for use in CSS.
  */
-// TODO : commented out due to build error
-// export const archrival = localFont({
-//   src: "../fonts/SF-Arch-Rival/SF-Arch-Rival.woff2",
-//   variable: "--font-sf-arch-rival",
-// });
+export const archrival = localFont({
+  src: "../fonts/sf-arch-rival/sf-arch-rival.woff",
+  display: "swap",
+  variable: "--font-sf-arch-rival",
+});
 
 /**
  * Configures and loads the 'SF Cartoonist Hand' font from a local file.
@@ -122,11 +118,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/SF-Cartoonist-Hand/SF-Cartoonist-Hand.woff2`
  * and assigned a CSS variable `--font-sf-cartoonist-hand` for use in CSS.
  */
-// TODO : commented out due to build error
-// export const cartoonist = localFont({
-//   src: "../fonts/SF-Cartoonist-Hand/SF-Cartoonist-Hand.woff2",
-//   variable: "--font-sf-cartoonist-hand",
-// });
+export const cartoonist = localFont({
+  src: "../fonts/sf-cartoonist-hand/sf-cartoonist-hand.woff",
+  display: "swap",
+  variable: "--font-sf-cartoonist-hand",
+});
 
 /**
  * Configures and loads the 'SF Toontime' font from a local file.
@@ -134,11 +130,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/SF-Toontime/SF-Toontime.woff2`
  * and assigned a CSS variable `--font-sf-toontime` for use in CSS.
  */
-// TODO : commented out due to build error
-// export const toontime = localFont({
-//   src: "../fonts/SF-Toontime/SF-Toontime.woff2",
-//   variable: "--font-sf-toontime",
-// });
+export const toontime = localFont({
+  src: "../fonts/sf-toontime/sf-toontime.woff",
+  display: "swap",
+  variable: "--font-sf-toontime",
+});
 
 /**
  * Configures and loads the 'VTC Letterer Pro' font from a local file.
@@ -146,11 +142,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/VTC-Letterer-Pro/VTC-Letterer-Pro.woff2`
  * and assigned a CSS variable `--font-vtc-letterer-pro` for use in CSS.
  */
-// TODO : commented out due to build error
-// export const vtc = localFont({
-//   src: "../fonts/VTC-Letterer-Pro/VTC-Letterer-Pro.woff2",
-//   variable: "--font-vtc-letterer-pro",
-// });
+export const vtc = localFont({
+  src: "../fonts/vtc-letterer-pro/vtc-letterer-pro.woff",
+  display: "swap",
+  variable: "--font-vtc-letterer-pro",
+});
 
 /**
  * Configures and loads the 'Digital Strip BB' font from a local file.
@@ -158,11 +154,11 @@ export const thegirlnextdoor = The_Girl_Next_Door({
  * It's sourced from `../fonts/DigitalStripBB/DigitalStripBB_Reg.woff2`
  * and assigned a CSS variable `--font-digital-strip-bb` for use in CSS.
  */
-// TODO : commented out due to build error
-// export const digitalstrip = localFont({
-//   src: "../fonts/DigitalStripBB/DigitalStripBB_Reg.woff2",
-//   variable: "--font-digital-strip-bb",
-// });
+export const digitalstrip = localFont({
+  src: "../fonts/digitalstripbb/digital-stripbb_reg.woff2",
+  display: "swap",
+  variable: "--font-digital-strip-bb",
+});
 
 /**
  * An object consolidating all configured font objects.
@@ -175,17 +171,17 @@ export const thegirlnextdoor = The_Girl_Next_Door({
 export const fonts = {
   indieflower,
   thegirlnextdoor,
-  // komika,
-  // actionman,
-  // karantula,
-  // manoskope,
-  // paeteround,
-  // qarmic,
-  // archrival,
-  // cartoonist,
-  // toontime,
-  // vtc,
-  // digitalstrip,
+  komika,
+  actionman,
+  karantula,
+  manoskope,
+  paeteround,
+  qarmic,
+  archrival,
+  cartoonist,
+  toontime,
+  vtc,
+  digitalstrip,
 };
 
 /**
@@ -210,8 +206,7 @@ export type FontName = keyof typeof fonts;
  * The default font name to be used across the application.
  * It is set to "cartoonist" and cast as `FontName` for type safety.
  */
-// export const defaultFont = "cartoonist" as FontName;
-export const defaultFont = "indieflower" as FontName;
+export const defaultFont = "cartoonist" as FontName;
 
 /**
  * An array containing the CSS class names generated by Next.js for each loaded font.

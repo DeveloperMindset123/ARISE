@@ -50,6 +50,7 @@ export function Bubble({
 
   return showCaptions ? (
     <Rnd
+      className="inset-x-0 bottom-0"
       size={{ width: bubbleState.width, height: bubbleState.height }}
       position={{ x: bubbleState.x, y: bubbleState.y }}
       minWidth={120}
@@ -80,13 +81,13 @@ export function Bubble({
       <div
         ref={ref}
         className={cn(
-          `bg-white text-black border-stone-800 rounded-lg shadow-lg text-center text-sm text-zinc-700 flex items-center justify-center w-full h-full px-4 py-2 bubble-drag-handle`
+          `bg-white text-black border-stone-800 rounded-lg shadow-lg text-center text-sm  flex items-center justify-center w-full h-full px-4 py-2 bubble-drag-handle`
         )}
         style={{ width: "100%", height: "100%" }}
       >
         <ContentEditable
           html={text.current}
-          className="text-sm text-black outline-none w-full min-h-[1.5em]"
+          className="text-sm text-black outline-none w-full min-h-[1.5em] bottom-0"
           onBlur={handleBlur}
           onChange={handleChange}
           tagName="div"

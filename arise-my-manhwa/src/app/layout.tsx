@@ -36,7 +36,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         // className={fonts.actionman.className}
-        className={fonts.indieflower as any}
+        className={fonts.actionman.className}
       >
         {children}
       </body>
