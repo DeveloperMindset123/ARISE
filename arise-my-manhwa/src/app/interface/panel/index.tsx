@@ -113,7 +113,7 @@ export function Panel({
   const [revision, setRevision] = useState(0);
 
   // keep a ref in sync
-  const renderedRef = useRef<RenderedScene>();
+  const renderedRef = useRef<RenderedScene>(null);
   const renderedKey = JSON.stringify(rendered);
   useEffect(() => {
     renderedRef.current = rendered;
